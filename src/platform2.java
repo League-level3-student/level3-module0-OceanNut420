@@ -20,6 +20,7 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 	boolean lvl1 = true;
 	boolean lvl2 = false;
 	boolean lvl3 = false;
+	boolean lvl4 = false;
 	
 	JFrame window;
 	Timer timer;
@@ -27,13 +28,14 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 	Player p1 = new Player(50, 50, 100, 100);
 	
 	ArrayList<Platform> platforms = new ArrayList<Platform>();
+	ArrayList<button> buttons = new ArrayList<button>();
 	
 	public static void main(String[] args) {
-		new platform2().run();
+		new platform2().lvl1();
 	}
 	
-	public void run(){
-		window = new JFrame("accelerando");
+	public void lvl1(){
+		window = new JFrame("1");
 		window.addKeyListener(this);
 		window.add(this);
 		window.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -48,12 +50,14 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 		platforms.add(new Platform(300, 250, 200, 50));
 		platforms.add(new Platform(100, 150, 200, 50));
 		
+		buttons.add(new button(180,130,40,20));
+		
 		timer.start();
 		
 	}
 	
 	public void lvl2(){
-		window = new JFrame("accelerando");
+		window = new JFrame("2");
 		window.addKeyListener(this);
 		window.add(this);
 		window.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -68,12 +72,14 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 		platforms.add(new Platform(30, 250, 200, 50));
 		platforms.add(new Platform(10, 150, 200, 50));
 		
+		buttons.add(new button(280,130,40,20));
+		
 		timer.start();
 		
 	}
 	
 	public void lvl3(){
-		window = new JFrame("accelerando");
+		window = new JFrame("3");
 		window.addKeyListener(this);
 		window.add(this);
 		window.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -88,6 +94,30 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 		platforms.add(new Platform(300, 400, 200, 50));
 		platforms.add(new Platform(100, 400, 200, 50));
 		
+		buttons.add(new button(180,130,40,20));
+		
+		timer.start();
+		
+	}
+	
+	public void lvl4(){
+		window = new JFrame("4");
+		window.addKeyListener(this);
+		window.add(this);
+		window.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setVisible(true);
+		window.pack();
+		timer = new Timer(1000 / 60, this);
+		
+		
+		platforms.add(new Platform(300, 200, 200, 50));
+		platforms.add(new Platform(500, 200, 200, 50));
+		platforms.add(new Platform(300, 200, 200, 50));
+		platforms.add(new Platform(100, 200, 200, 50));
+		
+		buttons.add(new button(180,130,40,20));
+		
 		timer.start();
 		
 	}
@@ -101,6 +131,9 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 		for(Platform p : platforms){
 			p.draw(g);
 		}
+		for(button p : buttons){
+			p.draw(g);
+		}
 	}
 	
 	public void actionPerformed(ActionEvent e){
@@ -109,6 +142,9 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 		p1.update();
 		
 		for(Platform p : platforms){
+			p.update();
+		}
+		for(button p : buttons){
 			p.update();
 		}
 		
@@ -121,6 +157,12 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 			if(p1.getCBox().intersects(p.getCBox())){
 				handleCollision(p);
 				return true;
+			}
+		}
+		for(button p: buttons){
+			if(p1.getCBox().intersects(p.getCBox())){
+				handleCollision2(p);
+				return true;				
 			}
 		}
 		
@@ -136,6 +178,14 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 		}
 	}
 	
+	private void handleCollision2(button p){
+		if(p1.getYVelocity() >= 0 && p1.getY() + p1.getHeight() < p.getY() + 25){
+			p1.setYLimit(p.getY() - p1.getHeight());
+		}else{
+			p1.setYLimit(500);
+		}
+	}
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -143,6 +193,31 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
+		if(e.getKeyCode() == KeyEvent.VK_E) {
+		for(button p: buttons){
+			if(p1.getCBox().intersects(p.getCBox())){
+				//timer.stop();
+								
+				if(lvl1 == true) {
+				new platform2().lvl2();
+				lvl1 = false;
+				lvl2 = true;
+				}
+				if(lvl2 == true) {
+				new platform2().lvl3();
+				lvl2 = false;
+				lvl3 = true;
+				}
+				if(lvl3 == true) {
+				new platform2().lvl4();
+				lvl3 = false;
+				lvl4 = true;
+				}
+				
+			}
+		}
+		}
 		
 		if(e.getKeyCode() == KeyEvent.VK_A){
 			p1.left = true;
@@ -155,25 +230,8 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 			p1.jump();
 		}
 		
-		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-			timer.stop();
-			//System.exit(0);
-			
-			if(lvl1 == true) {
-			new platform2().lvl2();
-			lvl1 = false;
-			lvl2 = true;
-			}
-			if(lvl2 == true) {
-			new platform2().lvl3();
-			lvl2 = false;
-			lvl3 = true;
-			}
-			
-		}
 		if(e.getKeyCode() == KeyEvent.VK_W){
-			int ee = p1.getY();
-			ee = ee - 100;
+			p1.tech();
 		}
 	}
 
@@ -212,6 +270,45 @@ class Platform{
 	
 	public void draw(Graphics g){
 		g.setColor(Color.GREEN);
+		g.fillRect(x, y, width, height);
+	}
+	
+	public Rectangle getCBox(){
+		return cBox;
+	}
+	
+	public int getX(){
+		return x;
+	}
+	
+	public int getY(){
+		return y;
+	}
+}
+
+class button{
+	private int x;
+	private int y;
+	private int width;
+	private int height;
+	
+	private Rectangle cBox = new Rectangle();
+	
+	public button(int x, int y, int w, int h){
+		this.x = x;
+		this.y = y;
+		this.width = w;
+		this.height = h;
+		
+		cBox.setBounds(x, y, width, height);
+	}
+	
+	public void update(){
+		cBox.setBounds(x, y, width, height);
+	}
+	
+	public void draw(Graphics g){
+		g.setColor(Color.RED);
 		g.fillRect(x, y, width, height);
 	}
 	
@@ -269,7 +366,15 @@ class Player{
 			}
 		}
 	}
-		
+	
+	public void tech() {
+		y = y - 100;
+	}
+	
+	public void adios() {
+		y = y - 1000;
+	}
+	
 	public void update(){
 		if(left){
 			x -= xVelocity;
@@ -288,6 +393,7 @@ class Player{
 		}
 		
 		cBox.setBounds(x, y, width, height);
+		
 	}
 	
 	public void draw(Graphics g){
