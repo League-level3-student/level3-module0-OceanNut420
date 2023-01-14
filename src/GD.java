@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -13,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 
-public class platform2 extends JPanel implements ActionListener, KeyListener{
+public class GD extends JPanel implements ActionListener, KeyListener, MouseListener{
 	public static final int WIDTH = 1920;
 	public static final int HEIGHT = 600;
 	
@@ -25,18 +27,19 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 	JFrame window;
 	Timer timer;
 	
-	Player p1 = new Player(50, 50, 100, 100);
+	Player p1 = new Player(250, 500, 100, 100);
 	
 	ArrayList<Platform> platforms = new ArrayList<Platform>();
 	ArrayList<button> buttons = new ArrayList<button>();
 	
 	public static void main(String[] args) {
-		new platform2().lvl1();
+		new GD().lvl1();
 	}
 	
 	public void lvl1(){
 		window = new JFrame("1");
 		window.addKeyListener(this);
+		window.addMouseListener(this);
 		window.add(this);
 		window.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,83 +47,16 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 		window.pack();
 		timer = new Timer(1000 / 60, this);
 		
-		platforms.add(new Platform(300, 450, 200, 50));
-		platforms.add(new Platform(500, 350, 200, 50));
-		platforms.add(new Platform(300, 250, 200, 50));
 		platforms.add(new Platform(100, 150, 200, 50));
 		
 		buttons.add(new button(180,130,40,20));
 		
-		timer.start();
-		
-	}
-	
-	public void lvl2(){
-		window = new JFrame("2");
-		window.addKeyListener(this);
-		window.add(this);
-		window.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setVisible(true);
-		window.pack();
-		timer = new Timer(1000 / 60, this);
-		
-		
-		platforms.add(new Platform(30, 450, 200, 50));
-		platforms.add(new Platform(50, 350, 200, 50));
-		platforms.add(new Platform(30, 250, 200, 50));
-		platforms.add(new Platform(10, 150, 200, 50));
-		
-		buttons.add(new button(280,130,40,20));
+		platforms.add(new Platform(500,500,100,100));
 		
 		timer.start();
 		
 	}
-	
-	public void lvl3(){
-		window = new JFrame("3");
-		window.addKeyListener(this);
-		window.add(this);
-		window.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setVisible(true);
-		window.pack();
-		timer = new Timer(1000 / 60, this);
 		
-		
-		platforms.add(new Platform(300, 400, 200, 50));
-		platforms.add(new Platform(500, 400, 200, 50));
-		platforms.add(new Platform(300, 400, 200, 50));
-		platforms.add(new Platform(100, 400, 200, 50));
-		
-		buttons.add(new button(180,130,40,20));
-		
-		timer.start();
-		
-	}
-	
-	public void lvl4(){
-		window = new JFrame("4");
-		window.addKeyListener(this);
-		window.add(this);
-		window.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setVisible(true);
-		window.pack();
-		timer = new Timer(1000 / 60, this);
-		
-		
-		platforms.add(new Platform(300, 200, 200, 50));
-		platforms.add(new Platform(500, 200, 200, 50));
-		platforms.add(new Platform(300, 200, 200, 50));
-		platforms.add(new Platform(100, 200, 200, 50));
-		
-		buttons.add(new button(180,130,40,20));
-		
-		timer.start();
-		
-	}
-	
 	public void paintComponent(Graphics g){
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -198,40 +134,14 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 			if(p1.getCBox().intersects(p.getCBox())){
 				//timer.stop();
 								
-				if(lvl1 == true) {
-				new platform2().lvl2();
-				lvl1 = false;
-				lvl2 = true;
-				}
-				if(lvl2 == true) {
-				new platform2().lvl3();
-				lvl2 = false;
-				lvl3 = true;
-				}
-				if(lvl3 == true) {
-				new platform2().lvl4();
-				lvl3 = false;
-				lvl4 = true;
-				}
-				
 			}
 		}
 		}
 		
-		if(e.getKeyCode() == KeyEvent.VK_A){
-			p1.left = true;
-		}
-		if(e.getKeyCode() == KeyEvent.VK_D){
-			p1.right = true;
-		}
-
 		if(e.getKeyCode() == KeyEvent.VK_SPACE){
 			p1.jump();
 		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_W){
-			p1.tech();
-		}
+				
 	}
 
 	@Override
@@ -244,83 +154,35 @@ public class platform2 extends JPanel implements ActionListener, KeyListener{
 			p1.right = false;
 		}
 	}
-}
 
-class Platform{
-	private int x;
-	private int y;
-	private int width;
-	private int height;
-	
-	private Rectangle cBox = new Rectangle();
-	
-	public Platform(int x, int y, int w, int h){
-		this.x = x;
-		this.y = y;
-		this.width = w;
-		this.height = h;
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
 		
-		cBox.setBounds(x, y, width, height);
+		
 	}
-	
-	public void update(){
-		cBox.setBounds(x, y, width, height);
-	}
-	
-	public void draw(Graphics g){
-		g.setColor(Color.BLACK);
-		g.fillRect(x, y, width, height);
-	}
-	
-	public Rectangle getCBox(){
-		return cBox;
-	}
-	
-	public int getX(){
-		return x;
-	}
-	
-	public int getY(){
-		return y;
-	}
-}
 
-class button{
-	private int x;
-	private int y;
-	private int width;
-	private int height;
-	
-	private Rectangle cBox = new Rectangle();
-	
-	public button(int x, int y, int w, int h){
-		this.x = x;
-		this.y = y;
-		this.width = w;
-		this.height = h;
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
-		cBox.setBounds(x, y, width, height);
 	}
-	
-	public void update(){
-		cBox.setBounds(x, y, width, height);
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
-	
-	public void draw(Graphics g){
-		g.setColor(Color.RED);
-		g.fillRect(x, y, width, height);
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		p1.jump();
+		
 	}
-	
-	public Rectangle getCBox(){
-		return cBox;
-	}
-	
-	public int getX(){
-		return x;
-	}
-	
-	public int getY(){
-		return y;
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
@@ -337,7 +199,7 @@ class Player{
 	
 	private int xVelocity = 5;
 	
-	private int gravity = 1;
+	private int gravity = 2;
 	private int yVelocity = 0;
 	private int jumpPower = 20;
 	
