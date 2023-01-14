@@ -38,12 +38,24 @@ public class _01_IntroToArrays {
     	}
         // 9. without printing the entire array, print only the smallest number
         //    on the array
-    	
+    	int small = 0;
+    	for(int i=0;i<50;i++) {
+    		if(dmg[i] < small) {
+    			small = dmg[i];
+    		}
+    	}
+    	System.out.println(small);
         // 10 print the entire array to see if step 8 was correct
-
+    	//EEEEE
         // 11. print the largest number in the array.
-
+    	int big = 0;
+    	for(int i=0;i<50;i++) {
+    		if(dmg[i] > big) {
+    			big = dmg[i];
+    		}
+    	}
+    	System.out.println(big);
         // 12. print only the last element in the array
-
+    	System.out.println(dmg[49]);
     }
 }
