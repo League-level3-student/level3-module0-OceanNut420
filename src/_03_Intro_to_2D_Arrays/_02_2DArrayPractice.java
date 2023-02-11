@@ -179,37 +179,47 @@ public class _02_2DArrayPractice {
      *    boundaries, return null.
      */
     public Integer getEastNeighbor(int[][] matrix, int row, int col) {
-    	int sum = matrix[row][col+1];
-    	if(sum < 0 || sum > 2) {
+    	
+       	if(col+1 < matrix[row].length) {
+    		System.out.println("test");
+    	return  matrix[row][col+1];
+    	}
+    	else{
     		return null;
     	}
-    	else {
-    		return sum;
-    	}
+    	
     }
     
     public Integer getWestNeighbor(int[][] matrix, int row, int col) {
-    	int sum = matrix[row][col-1];
-    	if(sum < 0 || sum > 2) {
+ 
+    	if(col-1 > 0) {
+    	return  matrix[row][col-1];
+    	}
+    	else{
     		return null;
     	}
-    	else {
-    		return sum;
-    	}
+    	
     }
     
     public Integer getNorthNeighbor(int[][] matrix, int row, int col) {
-    	int sum = matrix[row-1][col];
-    	if(sum < 0 || sum > 2) {
-    		return null;
-    	}
-    	else {
-    		return sum;
-    	}
+    	
+    	if(row-1 > 0) {
+        	return  matrix[row-1][col];
+        	}
+        	else{
+        		return null;
+        	}
+    	
     }
     
     public Integer getSouthNeighbor(int[][] matrix, int row, int col) {
         
-        return null;
+    	if(row+1 < 3) {
+        	return  matrix[row+1][col];
+        	}
+        	else{
+        		return null;
+        	}
+    	
     }
 }
