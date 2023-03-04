@@ -66,25 +66,21 @@ public class TheWrongWayCow {
     	for(int i=0;i<field.length;i++) {
     		for(int j=0;j<field[i].length;j++) {
     			if(field[i][j] == 'c') {
-    				if(field[i+1][j] == 'o' && field[i+2][j] == 'w') {
+    				if(i+2<field.length && field[i+1][j] == 'o' && field[i+2][j] == 'w') {
     					n++;
     					ncow = new int[] {j,i};
-    					
     				}
-    				if(field[i][j-1] == 'o' && field[i][j-2] == 'w') {
+    				if(j-2>=0 && field[i][j-1] == 'o' && field[i][j-2] == 'w') {
     					e++;
-    					ecow[0] = i;
-    					ecow[1] = j;
+    					ecow = new int[] {j,i};
     				}
-    				if(field[i-1][j] == 'o' && field[i-2][j] == 'w') {
+    				if(i-2>=0 && field[i-1][j] == 'o' && field[i-2][j] == 'w') {
     					s++;
-    					scow[0] = i;
-    					scow[1] = j;
+    					scow = new int[] {j,i};
     				}
-    				if(field[i][j+1] == 'o' && field[i][j+2] == 'w') {
+    				if(j+2<field[i].length && field[i][j+1] == 'o' && field[i][j+2] == 'w') {
     					w++;
-    					wcow[0] = i;
-    					wcow[1] = j;
+    					wcow = new int[] {j,i};
     				}
     				
     			}
