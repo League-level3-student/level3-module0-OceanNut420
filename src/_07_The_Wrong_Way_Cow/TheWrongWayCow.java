@@ -54,6 +54,58 @@ public class TheWrongWayCow {
         // Fill in the code to return the [col, row] coordinate position of the
         // head (letter 'c') of the wrong way cow!
         
-        return null;
+    	int n = 0;
+    	int e = 0;
+    	int s = 0;
+    	int w = 0;
+    	int[] ncow = null;
+    	int[] ecow = null;
+    	int[] scow = null;
+    	int[] wcow = null;
+    	
+    	for(int i=0;i<field.length;i++) {
+    		for(int j=0;j<field[i].length;j++) {
+    			if(field[i][j] == 'c') {
+    				if(field[i+1][j] == 'o' && field[i+2][j] == 'w') {
+    					n++;
+    					ncow = new int[] {j,i};
+    					
+    				}
+    				if(field[i][j-1] == 'o' && field[i][j-2] == 'w') {
+    					e++;
+    					ecow[0] = i;
+    					ecow[1] = j;
+    				}
+    				if(field[i-1][j] == 'o' && field[i-2][j] == 'w') {
+    					s++;
+    					scow[0] = i;
+    					scow[1] = j;
+    				}
+    				if(field[i][j+1] == 'o' && field[i][j+2] == 'w') {
+    					w++;
+    					wcow[0] = i;
+    					wcow[1] = j;
+    				}
+    				
+    			}
+    		}
+    	}
+    	
+    	if(n == 1) {
+    		return ncow;
+    	}
+    	if(e == 1) {
+    		return ecow;
+    	}
+    	if(s == 1) {
+    		return scow;
+    	}
+    	if(w == 1) {
+    		return wcow;
+    	}
+    	else {
+    		return null;
+    	}
+        
     }
 }
