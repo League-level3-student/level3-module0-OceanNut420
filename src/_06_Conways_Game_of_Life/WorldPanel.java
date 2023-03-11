@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -28,25 +29,47 @@ Cell[][] cells;
         this.cellsPerRow = cpr;
 
         // 2. Calculate the cell size.
-
+        
         // 3a. Initialize the cell array to the appropriate size.
-
+        cells = new Cell[50][50];
         // 3b. Iterate through the array and initialize each cell.
         //    Don't forget to consider the cell's dimensions when 
         //    passing in the location.
+        for(int i=0;i<50;i++) {
+        	for(int j=0;j<50;j++) {
+        		cells[i][j] = new Cell(1,1,1);
+        	}
+        }
 
     }
 
     public void randomizeCells() {
         // 4. Iterate through each cell and randomly set each
         //    cell's isAlive memeber to true or false
+    	Random rand = new Random(1);
+    	for(int i=0;i<50;i++) {
+        	for(int j=0;j<50;j++) {
+        		int rand2 = rand.nextInt();
+        		if(rand2 == 0) {
+        			cells[i][j].isAlive = false;
+        		}
+        		if(rand2 == 1) {
+            		cells[i][j].isAlive = true;
+            	}
+        	}
+        }
 
         repaint();
     }
 
     public void clearCells() {
         // 5. Iterate through the cells and set them all to dead.
-
+    	for(int i=0;i<50;i++) {
+        	for(int j=0;j<50;j++) {
+        		cells[i][j].isAlive = false;
+        	}
+        }
+    	
         repaint();
     }
 
@@ -65,7 +88,11 @@ Cell[][] cells;
     @Override
     public void paintComponent(Graphics g) {
         // 6. Iterate through the cells and draw them all
-
+    	for(int i=0;i<50;i++) {
+        	for(int j=0;j<50;j++) {
+        		cells[i][j].draw(g);
+        	}
+        }
 
         // Draw the perimeter of the grid
         g.setColor(Color.BLACK);
@@ -78,12 +105,21 @@ Cell[][] cells;
         //    using the getLivingNeighbors method.
         int[][] livingNeighbors = new int[cellsPerRow][cellsPerRow];
 
+        for(int i=0;i<50;i++) {
+        	for(int j=0;j<50;j++) {
+        		
+        	}
+        }
+        
         // 8. check if each cell should live or die
 
+        
+        
         repaint();
     }
 
-    // The method below gets the number of living neighbors around a
+    
+	// The method below gets the number of living neighbors around a
     // particular cell in the 2D array. A cell can have up to 8 neighbors.
     //        1   2    3
     //        4  cell  5
