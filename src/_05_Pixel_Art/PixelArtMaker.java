@@ -43,6 +43,8 @@ public class PixelArtMaker implements MouseListener{
     public void mouseClicked(MouseEvent e) {
     }
 
+    //what
+    
     @Override
     public void mousePressed(MouseEvent e) {
         gp.setColor(csp.getSelectedColor());
@@ -50,6 +52,8 @@ public class PixelArtMaker implements MouseListener{
         gp.clickPixel(e.getX(), e.getY());
         gp.repaint();
     }
+    
+    //fortnitegameplay
 
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -62,4 +66,6 @@ public class PixelArtMaker implements MouseListener{
     @Override
     public void mouseExited(MouseEvent e) {
     }
+    //whatthehaaaaaaaaaaaaaaaaaaaaaael
+    //ohmaegawdnouwaieaaaaie
 }

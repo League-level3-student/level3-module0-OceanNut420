@@ -63,6 +63,7 @@ for(int i=0;i<rows;i++) {
         //    of the pixel that was clicked. *HINT* Use the pixel's dimensions.
     	
     }
+    
 
     @Override
     public void paintComponent(Graphics g) {
@@ -72,7 +73,7 @@ for(int i=0;i<rows;i++) {
     	for(int i=0;i<rows;i++) {
     		for(int j=0;j<cols;j++) {
     			Rectangle rect = new Rectangle();
-    			rect.fill(0,0,0);
+    			//rect.fill(0,0,0);
     			
     		}
     	}
